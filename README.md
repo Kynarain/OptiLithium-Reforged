@@ -283,7 +283,8 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools\analyze-blockentity.ps
 
 ### 5.4 许可（LGPL-3.0-only）
 
-**本项目整体以 `LGPL-3.0-only` 分发**，根目录的 `LICENSE` 是完整许可原文（自含 GPL-3.0 正文）。
+**本项目整体以 `LGPL-3.0-only` 分发。** 根目录的 `LICENSE` 是 **LGPL-3.0 正文**，与 Lithium 自己发布的
+`LICENSE.md` **逐字符相同**（166 行）——不是另找一份，而是直接采用我们分发时所依据的那份文本。
 7 个脚本各自带 `SPDX-License-Identifier: LGPL-3.0-only` 标识。
 
 选这个许可不是随便定的——**是因为本项目分发的内容本身就是 LGPL-3.0 的**：
@@ -296,14 +297,16 @@ powershell -NoProfile -ExecutionPolicy Bypass -File tools\analyze-blockentity.ps
 所以用一个许可覆盖整个仓库是**自洽的**，不存在"我的代码被别人的 copyleft 传染"这种问题——恰恰相反，
 是**本项目主动采用与它所分发内容相同的许可**。
 
+**为什么 `LICENSE` 里只有 LGPL 而没有 GPL 正文**：LGPL-3.0 是"GPL-3.0 加附加许可"，它的正文自己在开篇
+就写明 *"incorporates the terms and conditions of version 3 of the GNU General Public License"*，即 GPL-3.0
+的条款**由引用并入**。Lithium 上游就是这么发的（只有一个 `LICENSE.md`），照它做既能被 GitHub 正确识别为
+`LGPL-3.0`，也与上游保持一致。若需要 GPL-3.0 正文本身，放在 [`docs/GPL-3.0.txt`](docs/GPL-3.0.txt)，纯属便利。
+
 改造 jar 对 LGPL-3.0 的三项义务（见 §十 的许可提醒）：
 
 - 原样保留 Lithium 的许可文件（1.21 线是 `LICENSE.txt`，新版改名为 `LICENSE.md`——两处都在，都保留）；
 - 内置 `OPTILITHIUM-REFORGED.txt` provenance：上游文件名、上游版本与 **sha256**、改了哪几行、上游源码地址；
 - 每次构建都重新生成，可完整复现——**构建脚本就在 `tools\`，这就是"对应源码"**。
-
-> **来源说明**：`LICENSE` 的原文取自 SPDX 官方许可数据（`LGPL-3.0-only`），未做任何删改。
-> 之所以不用 `gnu.org` 的版本，只是因为该站在本机被 403 拦截；两者内容一致。
 
 ### 5.5 输入目录是解析出来的，不是写死的
 
