@@ -1,0 +1,17 @@
+# Line-ending policy, declared rather than left to each contributor's core.autocrlf.
+#
+# The scripts here are byte-sensitive in one way that a surprise re-encoding can break: launch-rig.ps1 contains
+# Chinese (a world folder name) and must stay UTF-8 WITH a BOM, because the powershell 5.1 that runs it would
+# otherwise decode the file as ANSI and mangle the path. Several other scripts carry a BOM for the same reason.
+#
+# .gitattributes does not touch the BOM - only line endings - but pinning the endings removes one variable from a
+# failure mode that is genuinely hard to attribute after the fact.
+#
+# eol=lf, not eol=crlf: the scripts are LF today and PowerShell runs them fine either way, so declaring what is
+# already true avoids a one-off rewrite of every script the next time git touches the tree. It also wins over the
+# machine's core.autocrlf=true, so a clone gets the same bytes everywhere.
+*.ps1  text eol=lf
+
+*.md   text eol=lf
+*.txt  text eol=lf
+.gitignore text eol=lf
