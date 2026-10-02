@@ -54,7 +54,9 @@ My project OptiLithium Reforged was rejected as another author's work. I want to
 
 - `LICENSE.md` is shipped unchanged
 - `OPTILITHIUM-REFORGED.txt` states exactly what I changed — one entry removed from `breaks`, two mixin groups set to `false` in Lithium's default config
-- it also records which upstream file this was built from and that file's SHA-256, so anyone can get the source and reproduce it
+- it also records which upstream file this was built from and that file's SHA-256
+
+The build scripts are public, so the corresponding source is not just named but available: https://github.com/Kynarain/OptiLithium-Reforged — that repository holds the script that makes the change and the one that diffs the result against upstream, and the 16 builds I made are its release assets. Anyone can take the upstream jar and get the same file out.
 
 I'd also point out that **no class file is modified at all**. Every mixin is byte-identical to upstream. The change is configuration only.
 
@@ -66,7 +68,7 @@ For reference:
 
 - My profile: https://www.curseforge.com/members/kynarain
 - My own mod, which is unrelated to this file and which I do hold the copyright to: https://www.curseforge.com/minecraft/mc-mods/optifabric-reforged
-- Source repository: https://github.com/Kynarain/OptiFabric-Reforged
+- The source and build scripts for the file in question: https://github.com/Kynarain/OptiLithium-Reforged
 
 Thanks for your time.
 
