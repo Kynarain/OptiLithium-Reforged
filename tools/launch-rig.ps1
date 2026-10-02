@@ -40,12 +40,37 @@ param(
 	[switch]$ShaderDebug,
 	[string[]]$ExtraJvm = @(),
 	# The OptiLithium rig, which owns the profile launcher, the world source and the shader pack.
-	[string]$RigRepo = 'C:\Users\kynar\IdeaProjects\optilithium'
+	#
+	# Left empty so it is RESOLVED below rather than hard-coded. It used to be a literal
+	# C:\Users\kynar\IdeaProjects\optilithium, and when that project moved to I:\mods the default quietly pointed at
+	# a directory that no longer existed - the same failure mode versions.ps1 documents for its input directories.
+	# A stale default reads as "the rig is missing", not as "a path moved", so it is worth the few lines to look it
+	# up instead: the environment variable wins, then the first candidate that exists, then the first candidate
+	# regardless so the error still names a real path.
+	[string]$RigRepo = ''
 )
+
+# Where the OptiLithium rig lives, when the caller does not say. Mirrors Resolve-InputDir in versions.ps1.
+function Resolve-RigRepo {
+	$override = [Environment]::GetEnvironmentVariable('OPTILITHIUM_RIG')
+	if ($override) {
+		if (-not (Test-Path $override)) { throw "OPTILITHIUM_RIG is set to '$override', which does not exist" }
+		return $override
+	}
+
+	$candidates = @(
+		'I:\mods\OptiLithium',                        # where the project lives now
+		'C:\Users\kynar\IdeaProjects\optilithium'     # where it lived before the move; kept so old notes still work
+	)
+	$found = @($candidates | Where-Object { Test-Path $_ } | Select-Object -First 1)
+	if ($found.Count) { return [string]$found[0] }
+	return $candidates[0]
+}
 
 $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $root = Split-Path -Parent $here
+if (-not $RigRepo) { $RigRepo = Resolve-RigRepo }
 $testDir = Join-Path $RigRepo 'test'
 
 if (-not $McVersion) { $McVersion = ($VersionId -split '-')[0] }
