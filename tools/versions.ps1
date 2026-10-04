@@ -69,10 +69,14 @@ function Resolve-InputDir {
 $script:ModVersion = '1.0.0'
 
 $script:LithiumScratch = Resolve-InputDir -EnvVar 'LITHIUM_SCRATCH' -Candidates @(
-	'C:\Users\kynar\IdeaProjects\scratch\lithium'
+	'I:\mods\scratch\lithium'                                                              # since the move
+	(Join-Path (Split-Path -Parent (Split-Path -Parent $PSScriptRoot)) 'scratch\lithium')   # next to the sibling projects
+	'C:\Users\kynar\IdeaProjects\scratch\lithium'                                          # where it was
 )
 $script:OptiFineScratch = Resolve-InputDir -EnvVar 'OPTIFINE_SCRATCH' -Candidates @(
-	'C:\Users\kynar\IdeaProjects\scratch\optifine'
+	'I:\mods\scratch\optifine'                                                             # since the move
+	(Join-Path (Split-Path -Parent (Split-Path -Parent $PSScriptRoot)) 'scratch\optifine')  # next to the sibling projects
+	'C:\Users\kynar\IdeaProjects\scratch\optifine'                                         # where it was
 )
 $script:OptiFabricDist = Resolve-InputDir -EnvVar 'OPTIFABRIC_DIST' -Candidates @(
 	'I:\mods\OptiFabric\dist'                                                              # since the move
